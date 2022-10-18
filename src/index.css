@@ -206,6 +206,10 @@ explicitly, e.g.
   src: url('./assets/fonts/Inter\ Web/Inter.var.woff2') format('woff2');
 }
 
+body {
+  font-family: Inter;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
