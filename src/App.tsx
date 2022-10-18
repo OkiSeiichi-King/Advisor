@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -11,7 +11,7 @@ const router = createBrowserRouter(routes);
 
 function App() {
   return (
-    <div className="bg-gradient-to-b from-[#659DBD] via-[#FFFFFF] to-[#C7BB31] relative">
+    <div className="bg-gradient-to-b from-[#659DBD] via-[#FFFFFF] to-[#C7BB31] relative min-h-screen">
       <Header>
         <RouterProvider router={router} />
       </Header>

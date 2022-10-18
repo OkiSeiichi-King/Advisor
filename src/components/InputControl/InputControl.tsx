@@ -1,16 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function InputControl({
-  type,
-  placeholder,
-  label,
-  ...rest
-}: {
-  type: string;
-  placeholder: string;
-  label: string;
-}) {
+export default function InputControl(
+  {
+    type,
+    placeholder,
+    label,
+    ...rest
+  }: {
+    type: string;
+    placeholder: string;
+    label: string;
+  },
+  ref: any
+) {
   const { register, handleSubmit } = useForm();
   return (
     <div className="">
@@ -19,7 +22,9 @@ export default function InputControl({
         type={type}
         placeholder={placeholder}
         className="block w-full p-4 border-[#659DBD] mt-3 rounded-md border-2 border-solid outline-none focus:border-sky-500"
-        {...register(label)}
+        {...rest}
+        name={label}
+        // ref={ref}
       />
     </div>
   );
