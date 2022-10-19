@@ -4,6 +4,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { next, prev } from '../../../store/profile_page';
 
 import InputControl from '../../../components/InputControl';
+import ReactSelect from 'react-select';
+
+const locationOptions = [
+  { label: 'Geneva', value: 'Geneva' },
+  { label: 'Fribourg', value: 'Fribourg' },
+  { label: 'Lucern', value: 'Lucern' },
+  { label: 'Bale', value: 'Bale' },
+  { label: 'Vaud', value: 'Vaud' },
+  { label: 'Neuchatel', value: 'Neuchatel' },
+  { label: 'Ticino', value: 'Ticino' },
+  { label: 'Bern', value: 'Bern' },
+  { label: 'Jura', value: 'Jura' },
+  { label: 'Valais', value: 'Valais' },
+  { label: 'Zurich', value: 'Zurich' },
+  { label: 'Zug', value: 'Zug' },
+];
 
 export default React.forwardRef(
   (props: any, ref: React.LegacyRef<HTMLFormElement>) => {
@@ -110,151 +126,14 @@ export default React.forwardRef(
             {errors.location && (
               <span className="text-red-600">This field is required</span>
             )}
-            <div className="grid grid-cols-4 grid-rows-3 mt-3">
-              <div className="flex items-center pl-3 mb-2">
-                <input
-                  type="checkbox"
-                  id="Geneva"
-                  className="w-4 h-4"
-                  value="Geneva"
-                  {...register('location', { required: true })}
-                />
-                <label htmlFor="Geneva" className="ml-5">
-                  Geneva
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Fribourg"
-                  className="w-4 h-4"
-                  value="Fribourg"
-                  {...register('location')}
-                />
-                <label htmlFor="Fribourg" className="ml-5">
-                  Fribourg
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Lucern"
-                  value="Lucern"
-                  className="w-4 h-4"
-                  {...register('location')}
-                />
-                <label htmlFor="Lucern" className="ml-5">
-                  Lucern
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Bale"
-                  value="Bale"
-                  className="w-4 h-4"
-                  {...register('location')}
-                />
-                <label htmlFor="Bale" className="ml-5">
-                  Bale
-                </label>
-              </div>
-              <div className="flex items-center pl-3 mb-2">
-                <input
-                  type="checkbox"
-                  id="Vaud"
-                  className="w-4 h-4"
-                  value="Vaud"
-                  {...register('location')}
-                />
-                <label htmlFor="Vaud" className="ml-5">
-                  Vaud
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Neuchatel"
-                  className="w-4 h-4"
-                  value="Neuchatel"
-                  {...register('location')}
-                />
-                <label htmlFor="Neuchatel" className="ml-5">
-                  Neuchatel
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Ticino"
-                  value="Ticino"
-                  className="w-4 h-4"
-                  {...register('location')}
-                />
-                <label htmlFor="Ticino" className="ml-5">
-                  Ticino
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Bern"
-                  value="Bern"
-                  className="w-4 h-4"
-                  {...register('location')}
-                />
-                <label htmlFor="Bern" className="ml-5">
-                  Bern
-                </label>
-              </div>
-              <div className="flex items-center pl-3 mb-2">
-                <input
-                  type="checkbox"
-                  id="Jura"
-                  className="w-4 h-4"
-                  value="Jura"
-                  {...register('location')}
-                />
-                <label htmlFor="Jura" className="ml-5">
-                  Jura
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Valais"
-                  className="w-4 h-4"
-                  value="Valais"
-                  {...register('location')}
-                />
-                <label htmlFor="Valais" className="ml-5">
-                  Valais
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Zurich"
-                  className="w-4 h-4"
-                  {...register('location')}
-                  value="Zurich"
-                />
-                <label htmlFor="Zurich" className="ml-5">
-                  Zurich
-                </label>
-              </div>
-              <div className="flex items-center pl-3">
-                <input
-                  type="checkbox"
-                  id="Zug"
-                  className="w-4 h-4"
-                  {...register('location')}
-                  value="Zug"
-                />
-                <label htmlFor="Zug" className="ml-5">
-                  Zug
-                </label>
-              </div>
+            <div className="">
+              <ReactSelect
+                name="filters"
+                placeholder="Filters"
+                options={locationOptions}
+                isMulti={true}
+                className="mt-4"
+              />
             </div>
           </div>
         </form>

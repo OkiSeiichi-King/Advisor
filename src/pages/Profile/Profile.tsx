@@ -80,13 +80,13 @@ export default function Profile() {
             <img className="" src={step_images[activePage]} alt="step" />
             <div className="w-full ml-3">
               <span className="text-white block text-4xl text-[inter]">
-                {((100 * activePage) / 6).toFixed(0)}%
+                {((100 * activePage) / 5).toFixed(0)}%
               </span>
               <div className="w-full h-3 rounded-lg border-2 border-white border-solid bg-transparent relative">
                 <span
                   className="block absolute ml-[0.1rem] h-full bg-white"
                   style={{
-                    width: ((100 * activePage) / 6).toFixed(0).toString() + '%',
+                    width: ((100 * activePage) / 5).toFixed(0).toString() + '%',
                   }}
                 ></span>
               </div>

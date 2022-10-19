@@ -112,15 +112,25 @@ export default React.forwardRef(
         ref={ref}
       >
         <div>
-          <label className="block">
-            How would you define your most recent role?
-          </label>
+          <label className="block">In which sector do you work?</label>
           <ReactSelect
             // @ts-ignore
             ref={roleSelRef}
             options={roleOptions}
             className="mt-4"
             onChange={selecteRole}
+          ></ReactSelect>
+        </div>
+        <div className="mt-3">
+          <label className="block">
+            How would you define your most recent role?
+          </label>
+          <ReactSelect
+            // @ts-ignore
+            ref={workSelRef}
+            options={workOptions}
+            className="mt-4"
+            onChange={selectWork}
           ></ReactSelect>
         </div>
         <div className="mt-3">
@@ -137,16 +147,7 @@ export default React.forwardRef(
             <span className="text-red-600">This field is required</span>
           )}
         </div>
-        <div className="mt-3">
-          <label className="block">In which sector do you work?</label>
-          <ReactSelect
-            // @ts-ignore
-            ref={workSelRef}
-            options={workOptions}
-            className="mt-4"
-            onChange={selectWork}
-          ></ReactSelect>
-        </div>
+
         <div className="mt-3">
           <label className="block">What is your current salary?</label>
           <input
