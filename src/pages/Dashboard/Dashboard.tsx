@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import banner_image from '../../assets/images/banner-handphone.png';
 import increase_image from '../../assets/images/increase.png';
@@ -40,9 +41,12 @@ export default function Dashboard() {
                 <span className="inline-block text-7xl font-medium font-[inter]">
                   Calculate <br></br>your <br></br>market<br></br> value
                 </span>
-                <a className="font-[inter] text-center bg-yellow-400 inline-block cursor-pointer px-10 py-2 rounded-lg shadow-lg shadow-black-500/40 text-2xl mt-[6rem]">
+                <Link
+                  to={'/profile'}
+                  className="font-[inter] text-center bg-yellow-400 inline-block cursor-pointer px-10 py-2 rounded-lg shadow-lg shadow-black-500/40 text-2xl mt-[6rem]"
+                >
                   TRY FOR FREE
-                </a>
+                </Link>
               </div>
               <div className="w-3/4 lg:pl-[14rem]">
                 <img
@@ -56,12 +60,19 @@ export default function Dashboard() {
 
           <div className="video w-full mt-[150px]">
             <video
-              src="https://link.us1.storjshare.io/raw/14WhrdmBRutvM6jDQYH5bVbVVuwygv16P9QpfSxoA5cF1vdizK6WLBKFygeBU3LugzqmZXdGYmdJR9VnyPynEtLBXfdbBvHP18ayLGge6XdEFGYnuW2F1ajxC6SfxWz3bhqTMApvB8jXr452TnLEnGV7MdkY7us5o8zMUCaHpXTkAKy4PPftg6isxBp1UEFfqhcmtNorYNaoHKCpGWZbVY1pHrpqcbZqzTRJw1RWj9Vj1zy7PBMt4UUTx8aen9MwVsWvpkHQCsGrbM2eMt6nFUhfHQ5TWHQkSoMcPzyNazdeRYtKCW7nJYShb7y/entre-dev/videos/bd6f7295093247efac2449eff01128df.mp4"
-              className="block mx-auto w-[65vw!important] "
+              className="block mx-auto w-[65vw!important] border-4 border-yellow-400 border-solid"
               autoPlay
               loop
               controls
-            />
+              muted
+            >
+              <source
+                src={
+                  'https://link.us1.storjshare.io/raw/14WhrdmBRutvM6jDQYH5bVbVVuwygv16P9QpfSxoA5cF1vdizK6WLBKFygeBU3LugzqmZXdGYmdJR9VnyPynEtLBXfdbBvHP18ayLGge6XdEFGYnuW2F1ajxC6SfxWz3bhqTMApvB8jXr452TnLEnGV7MdkY7us5o8zMUCaHpXTkAKy4PPftg6isxBp1UEFfqhcmtNorYNaoHKCpGWZbVY1pHrpqcbZqzTRJw1RWj9Vj1zy7PBMt4UUTx8aen9MwVsWvpkHQCsGrbM2eMt6nFUhfHQ5TWHQkSoMcPzyNazdeRYtKCW7nJYShb7y/entre-dev/videos/bd6f7295093247efac2449eff01128df.mp4'
+                }
+                type="video/mp4"
+              />
+            </video>
             <div className="w-full flex justify-center mt-[120px]">
               <a
                 href=""
