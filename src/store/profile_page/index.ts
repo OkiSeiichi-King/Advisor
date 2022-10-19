@@ -6,7 +6,7 @@ export interface PageState {
 }
 
 const initialState: PageState = {
-  value: 1,
+  value: 0,
 };
 
 export const pageSlice = createSlice({

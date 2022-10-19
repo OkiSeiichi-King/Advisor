@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../../../store';
 import { next, prev } from '../../../store/profile_page';
 
 import InputControl from '../../../components/InputControl';
