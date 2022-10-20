@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { next } from '../../../store/profile_page';
+import { setData as setSecondData } from '../../../store/secondData';
 
 import roleOptionJson from '../../../assets/json/branch.json';
-
-import DropdownTreeSelect from 'react-dropdown-tree-select';
 
 export default React.forwardRef(
   (props: any, ref: React.LegacyRef<HTMLFormElement>) => {
@@ -22,6 +21,7 @@ export default React.forwardRef(
 
     const roleSelRef = useRef(null);
     const workSelRef = useRef(null);
+
     // @ts-ignore
     const makeTreeOption = (jsonData: any, parentId: any) => {
       var temp_array = [];
@@ -108,6 +108,7 @@ export default React.forwardRef(
           if (selectedRole == null) return;
           if (selectedWork == null) return;
           dispatch(next());
+          dispatch(setSecondData(data.salary));
         })}
         ref={ref}
       >
@@ -151,7 +152,7 @@ export default React.forwardRef(
         <div className="mt-3">
           <label className="block">What is your current salary?</label>
           <input
-            type="text"
+            type="number"
             placeholder="Annual Salary in CHF"
             className="block w-full p-4 border-[#659DBD] mt-3 rounded-md border-2 border-solid outline-none focus:border-sky-500"
             {...register('salary', { required: true })}

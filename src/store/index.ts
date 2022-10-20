@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 // ...
 import profilePageReducer from './profile_page';
+import firstData from './firstData';
+import secondData from './secondData';
+import threeData from './threeData';
 
 export const store = configureStore({
   reducer: {
     active_profile_page: profilePageReducer,
+    threeData,
+    firstData,
+    secondData,
   },
 });
 

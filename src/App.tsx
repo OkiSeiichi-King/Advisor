@@ -10,7 +10,7 @@ const router = createBrowserRouter(routes);
 
 function App() {
   return (
-    <div className="bg-gradient-to-b from-[#659DBD] via-[#FFFFFF] to-[#C7BB31] relative min-h-screen">
+    <div className="bg-gradient-to-b from-[#659DBD] via-[#FFFFFF]  to-[#C7BB31] relative min-h-screen">
       <Header>
         <RouterProvider router={router} />
       </Header>

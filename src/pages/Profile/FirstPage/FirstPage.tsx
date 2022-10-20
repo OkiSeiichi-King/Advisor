@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { next, prev } from '../../../store/profile_page';
+import { setData } from '../../../store/firstData';
 
 import InputControl from '../../../components/InputControl';
 import ReactSelect from 'react-select';
@@ -35,6 +36,10 @@ export default React.forwardRef(
         <form
           onSubmit={handleSubmit((data) => {
             dispatch(next());
+            dispatch(
+              // @ts-ignore
+              setData({ firstName: data.firstName, lastName: data.lastName })
+            );
           })}
           ref={ref}
         >
