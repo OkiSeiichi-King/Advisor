@@ -44,7 +44,7 @@ export default React.forwardRef(
           ref={ref}
         >
           <div className="">
-            <label className="block">FirstName</label>
+            <label className="block">First Name</label>
             <input
               type="text"
               placeholder="Write your first name."
@@ -56,7 +56,7 @@ export default React.forwardRef(
             )}
           </div>
           <div className="mt-2">
-            <label className="block">LastName</label>
+            <label className="block">Last Name</label>
             <input
               type="text"
               placeholder="Write your last name."
@@ -134,7 +134,7 @@ export default React.forwardRef(
             <div className="">
               <ReactSelect
                 name="filters"
-                placeholder="Filters"
+                placeholder="Enter your desired locations"
                 options={locationOptions}
                 isMulti={true}
                 className="mt-4"

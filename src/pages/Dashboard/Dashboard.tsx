@@ -74,7 +74,7 @@ export default function Dashboard() {
           <div className="pt-10 md:block hidden">
             <div className="banner mt-4">
               <div className="text-8xl font-[400] text-white font-[Newake]">
-                {t('dashboard.title')}
+                <Link to="/">{t('dashboard.title')}</Link>
               </div>
               <div className="flex">
                 <div className="w-1/4 text-white pt-16">
@@ -92,7 +92,7 @@ export default function Dashboard() {
                   <img
                     src={banner_image}
                     alt="banner-image"
-                    className="block mx-auto lg:mt-[-60px] w-full"
+                    className="block mx-auto w-full"
                   />
                 </div>
               </div>
@@ -148,8 +148,8 @@ export default function Dashboard() {
             <img src={mobile_banner_image} className="w-full" />
 
             <div className="absolute w-full top-0 left-0 h-full z-0">
-              <h1 className="text-5xl text-center font-[Newake] text-white pt-12">
-                PEOPLE<br></br>ADVISOR
+              <h1 className="text-5xl text-center font-[Newake] text-white pt-12 mx-auto mt-10">
+                <Link to="/">{t('dashboard.title')}</Link>
               </h1>
               <p className="text-center font-[inter] text-4xl mt-16 font-medium text-white">
                 Calculate <br></br>your <br></br>salary<br></br> now
@@ -168,12 +168,12 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="flex justify-center mt-16">
-                <a
-                  href=""
+                <Link
+                  to="/profile"
                   className="rounded-xl text-white bg-[#C7BB31] text-center font-[inter] font-bold text-3xl inline-block mx-auto px-10 py-3"
                 >
                   Start Now
-                </a>
+                </Link>
               </div>
             </div>
           </div>

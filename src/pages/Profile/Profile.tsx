@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store';
 import { next, prev } from '../../store/profile_page';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
@@ -17,6 +19,7 @@ import FourthImage from '../../assets/images/fourth.png';
 import SixImage from '../../assets/images/six.png';
 
 import leftGifImage from '../../assets/images/left_gif.gif';
+import leftMobileImage from '../../assets/images/mobile_top.png';
 
 const step_images = [
   FirstImage,
@@ -33,6 +36,8 @@ export default function Profile() {
   const fourthFormRef = useRef<HTMLFormElement>(null);
   const fifthFormRef = useRef<HTMLFormElement>(null);
   const sixFormRef = useRef<HTMLFormElement>(null);
+
+  const [t, i18n] = useTranslation('common');
 
   const pages = [
     <FirstPage ref={firstFormRef} />,
@@ -104,6 +109,20 @@ export default function Profile() {
     dispatch(prev(1));
   };
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+  const setWindowDimensions = () => {
+    setWindowWidth(window.innerWidth);
+    setWindowHeight(window.innerHeight);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', setWindowDimensions);
+
+    return () => {};
+  }, []);
+
   // console.log((100 * activePage) / 6, 100 * activePage);
 
   return (
@@ -111,8 +130,8 @@ export default function Profile() {
       <div className="container mx-auto ">
         <div className="pt-10">
           <div className="banner mt-4 flex">
-            <div className="text-8xl font-[400] text-white font-[Newake] md:w-7/12 text-center w-full">
-              PEOPLE ADVISOR
+            <div className="md:text-8xl text-6xl md:mt-0 mt-8 font-[400] text-white font-[Newake] md:w-7/12 text-center w-full">
+              <Link to="/">{t('dashboard.title')}</Link>
             </div>
             <div className="w-5/12 justify-center items-center  md:flex hidden">
               <img className="" src={step_images[activePage]} alt="step" />
@@ -135,12 +154,26 @@ export default function Profile() {
 
           <div className="content flex mt-2 pb-16 items-center md:flex-row flex-col-reverse ">
             <div className="md:w-1/2 w-full">
-              <p className="text-2xl md:text-white text-black mt-16 text-center text-[inter] font-[400]">
+              <p className="md:text-2xl text-[1.25rem] md:px-0 px-2 md:text-white text-black md:mt-16 text-center text-[inter] font-[400]">
                 {titles[activePage]}
               </p>
               <div className="bg-white rounded-2xl p-8 mt-12 shadow-zinc-900 mx-2 md:mx-0">
                 <div className="w-full justify-center items-center  md:hidden flex mb-9">
-                  <img className="" src={step_images[activePage]} alt="step" />
+                  {activePage === 5 ? (
+                    <Link to={'/'}>
+                      <img
+                        className=""
+                        src={step_images[activePage]}
+                        alt="step"
+                      />
+                    </Link>
+                  ) : (
+                    <img
+                      className=""
+                      src={step_images[activePage]}
+                      alt="step"
+                    />
+                  )}
                   <div className="w-full ml-3">
                     <span className="text-[#659DBD] block text-4xl text-[inter]">
                       {((100 * activePage) / 5).toFixed(0)}%
@@ -235,7 +268,11 @@ export default function Profile() {
               </div>
             </div>
             <div className="md:w-1/2 w-full md:ml-16 md:pl-16 md:mt-14">
-              <img src={leftGifImage} className="w-full" alt="gif" />
+              <img
+                src={windowWidth < 768 ? leftMobileImage : leftGifImage}
+                className="w-full"
+                alt="gif"
+              />
             </div>
           </div>
         </div>

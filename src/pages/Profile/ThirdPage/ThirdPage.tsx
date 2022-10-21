@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +12,11 @@ export default function ThirdPage() {
   const [show, setShow] = useState(false);
   const [error, setError] = useState({});
   const dispatch = useDispatch();
+
+  const firstRef = useRef<HTMLInputElement>(null);
+  const secondRef = useRef<HTMLInputElement>(null);
+  const thirdRef = useRef<HTMLInputElement>(null);
+  const fouthRef = useRef<HTMLInputElement>(null);
 
   // console.log(show ? 'none' : '');
 
@@ -43,7 +48,7 @@ export default function ThirdPage() {
         Request verification
       </button>
       <div
-        className="mx-10 mt-10 p-7 border-2 border-solid border-[#BEBEBE] rounded-md"
+        className="md:mx-10 md-0 mt-10 p-7 border-2 border-solid border-[#BEBEBE] rounded-md"
         style={{ display: !show ? 'none' : 'block' }}
       >
         <p className="text-[#659DBD] text-center">
@@ -59,26 +64,87 @@ export default function ThirdPage() {
             <input
               className="w-14 h-14 rounded-sm border-2 border-solid border-[#BEBEBE] mx-3 focus:outline-none text-center"
               type="text"
-              max={9}
-              min={0}
+              ref={firstRef}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace') {
+                  return;
+                }
+                if (event.key < '0' || event.key > '9') {
+                  return event.preventDefault();
+                }
+                if (firstRef.current?.value.length === 0) {
+                  return;
+                }
+                if (firstRef.current?.value.length === 1) {
+                  secondRef.current?.focus();
+                }
+              }}
             ></input>
             <input
               className="w-14 h-14 rounded-sm border-2 border-solid border-[#BEBEBE] mx-3 focus:outline-none text-center"
               type="text"
-              max={9}
-              min={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace') {
+                  if (secondRef.current?.value.length === 0) {
+                    firstRef.current?.focus();
+                  }
+                  return;
+                }
+                if (event.key < '0' || event.key > '9') {
+                  return event.preventDefault();
+                }
+                if (secondRef.current?.value.length === 0) {
+                  return;
+                }
+                if (secondRef.current?.value.length === 1) {
+                  thirdRef.current?.focus();
+                }
+              }}
+              ref={secondRef}
             ></input>
             <input
               className="w-14 h-14 rounded-sm border-2 border-solid border-[#BEBEBE] mx-3 focus:outline-none text-center"
               type="text"
-              max={9}
-              min={0}
+              ref={thirdRef}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace') {
+                  if (thirdRef.current?.value.length === 0) {
+                    secondRef.current?.focus();
+                  }
+                  return;
+                }
+                if (event.key < '0' || event.key > '9') {
+                  return event.preventDefault();
+                }
+                if (thirdRef.current?.value.length === 0) {
+                  return;
+                }
+                if (thirdRef.current?.value.length === 1) {
+                  fouthRef.current?.focus();
+                }
+              }}
             ></input>
             <input
               className="w-14 h-14 rounded-sm border-2 border-solid border-[#BEBEBE] mx-3 focus:outline-none text-center"
               type="text"
-              max={9}
-              min={0}
+              ref={fouthRef}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace') {
+                  if (fouthRef.current?.value.length === 0) {
+                    thirdRef.current?.focus();
+                  }
+                  return;
+                }
+                if (event.key < '0' || event.key > '9') {
+                  return event.preventDefault();
+                }
+                if (fouthRef.current?.value.length === 0) {
+                  return;
+                }
+                if (fouthRef.current?.value.length === 1) {
+                  event.preventDefault();
+                }
+              }}
             ></input>
           </div>
           <button
