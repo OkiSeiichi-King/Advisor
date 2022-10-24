@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import type { RootState } from '../../../store';
 import Charts from '../../../components/Charts';
-import { next } from '../../../store/profile_page';
+import { next, finish, noFinish } from '../../../store/profile_page';
 
 export default React.forwardRef(
   (props: any, ref: React.LegacyRef<HTMLFormElement>) => {
     const dispatch = useDispatch();
     const salary = useSelector((state: RootState) => state.secondData.salary);
+    const firstName = useSelector(
+      (state: RootState) => state.firstData.firstName
+    );
+
+    const isFinish = useSelector(
+      (state: RootState) => state.active_profile_page.isFinish
+    );
+
+    const [display, setDisplay] = useState(false);
+    const [isDisable, setIsDisable] = useState(false);
 
     const {
       register,
       handleSubmit,
       formState: { errors },
       setError,
+      setValue,
     } = useForm();
 
     return (
@@ -36,11 +47,21 @@ export default React.forwardRef(
               if (data.YesOrNo === null) {
                 setError('YesOrNo', {
                   type: 'custom',
-                  message: 'Please select your opinion',
+                  message: 'Please select your opinion.',
                 });
                 return;
               }
-              dispatch(next());
+              if (display && data.evalutionReason === '') {
+                setError('evalutionReason', {
+                  type: 'custom',
+                  message: 'Please input your reason.',
+                });
+                return;
+              }
+
+              setIsDisable(true);
+
+              dispatch(finish());
             })}
             ref={ref}
           >
@@ -51,7 +72,15 @@ export default React.forwardRef(
                   type="radio"
                   {...register('YesOrNo')}
                   value="yes"
-                  className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300  dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:outline-none"
+                  onClick={() => {
+                    setValue('evalutionReason', '');
+                    setDisplay(true);
+                    if (isFinish) {
+                      dispatch(noFinish());
+                      setIsDisable(false);
+                    }
+                  }}
+                  className=" w-6 h-6 text-blue-600 bg-gray-100 border-gray-300   dark:bg-gray-700  focus:outline-none"
                 />
                 <label htmlFor="bordered-radio-9" className="ml-2 w-full">
                   Yes
@@ -64,10 +93,45 @@ export default React.forwardRef(
                   {...register('YesOrNo')}
                   value="no"
                   className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300  dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:outline-none"
+                  onChange={(e) => {
+                    setValue('evalutionReason', '');
+                    setDisplay(true);
+                    if (isFinish) {
+                      setIsDisable(false);
+                      dispatch(noFinish());
+                    }
+                  }}
                 />
                 <label htmlFor="bordered-radio-10" className="ml-2 w-full">
                   No
                 </label>
+              </div>
+            </div>
+            <div
+              className="mt-5"
+              style={{ display: display ? 'block' : 'none' }}
+            >
+              <label className="block">Why did you do this evalutation?</label>
+              <input
+                type="text"
+                placeholder="Write why you did this evaluation?"
+                className="read-only:border-[grey] block w-full p-4 border-[#659DBD] mt-3 rounded-md border-2 border-solid outline-none focus:border-sky-500"
+                {...register('evalutionReason')}
+                readOnly={isDisable}
+                onChange={() => {
+                  if (isFinish) dispatch(noFinish());
+                }}
+              />
+              {errors.evalutionReason && (
+                <span className="text-red-600">This field is required</span>
+              )}
+              <div className="mt-10">
+                <p className="text-center">
+                  Thank you {firstName} for your time.
+                </p>
+                <p className="text-center">
+                  We will try to improve the chatbot in the following weeks.
+                </p>
               </div>
             </div>
           </form>

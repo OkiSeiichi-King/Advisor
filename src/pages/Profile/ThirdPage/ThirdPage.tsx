@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setData } from '../../../store/threeData';
 //@ts-ignore
 import validator from 'validator';
+import { next } from '../../../store/profile_page';
 
 export default function ThirdPage() {
   const [phoneValue, setPhoneNum] = useState('');
 
   const [show, setShow] = useState(false);
   const [error, setError] = useState({});
+  const [isDisable, setIsDisable] = useState(true);
   const dispatch = useDispatch();
 
   const firstRef = useRef<HTMLInputElement>(null);
@@ -18,25 +20,29 @@ export default function ThirdPage() {
   const thirdRef = useRef<HTMLInputElement>(null);
   const fouthRef = useRef<HTMLInputElement>(null);
 
+  const checkValide = () => {
+    if (
+      (firstRef.current?.value as string).length !== 0 &&
+      (secondRef.current?.value as string).length !== 0 &&
+      (thirdRef.current?.value as string).length !== 0 &&
+      (fouthRef.current?.value as string).length !== 0
+    ) {
+      return setIsDisable(false);
+    }
+    setIsDisable(true);
+  };
+
   // console.log(show ? 'none' : '');
 
   return (
     <div>
-      {/* <input
-        type="text"
-        id="sign-in-phone-number"
-        dir="auto"
-        inputMode="tel"
-        className="block w-full p-4 border-[#659DBD] mt-3 rounded-md border-2 border-solid outline-none focus:border-sky-500"
-      /> */}
       <PhoneInput
         placeholder="Enter phone number"
         value={phoneValue}
         onChange={setPhoneNum}
         containerClass="w-full"
-        inputClass="w-full-import h-12 text-[1.2rem]"
+        inputClass="h-12 text-[1.2rem] w-full"
         country="us"
-        dropdownClass="w-8"
       />
       <button
         className="w-full text-white bg-[#659DBD] block rounded-lg p-3 mt-3"
@@ -48,7 +54,7 @@ export default function ThirdPage() {
         Request verification
       </button>
       <div
-        className="md:mx-10 md-0 mt-10 p-7 border-2 border-solid border-[#BEBEBE] rounded-md"
+        className="md:mx-10 md-0 mt-10 py-7 px-3 border-2 border-solid border-[#BEBEBE] rounded-md"
         style={{ display: !show ? 'none' : 'block' }}
       >
         <p className="text-[#659DBD] text-center">
@@ -58,6 +64,7 @@ export default function ThirdPage() {
           onSubmit={(e) => {
             e.preventDefault();
             dispatch(setData({ isOk: true }));
+            dispatch(next());
           }}
         >
           <div className="flex justify-center mt-5">
@@ -69,9 +76,16 @@ export default function ThirdPage() {
                 if (event.key === 'Backspace') {
                   return;
                 }
-                if (event.key < '0' || event.key > '9') {
+                if (
+                  event.key < '0' ||
+                  event.key > '9' ||
+                  (firstRef.current?.value as string).length > 0
+                ) {
                   return event.preventDefault();
                 }
+              }}
+              onKeyUp={(event) => {
+                checkValide();
                 if (firstRef.current?.value.length === 0) {
                   return;
                 }
@@ -90,9 +104,16 @@ export default function ThirdPage() {
                   }
                   return;
                 }
-                if (event.key < '0' || event.key > '9') {
+                if (
+                  event.key < '0' ||
+                  event.key > '9' ||
+                  (secondRef.current?.value as string).length > 0
+                ) {
                   return event.preventDefault();
                 }
+              }}
+              onKeyUp={(event) => {
+                checkValide();
                 if (secondRef.current?.value.length === 0) {
                   return;
                 }
@@ -106,16 +127,8 @@ export default function ThirdPage() {
               className="w-14 h-14 rounded-sm border-2 border-solid border-[#BEBEBE] mx-3 focus:outline-none text-center"
               type="text"
               ref={thirdRef}
-              onKeyDown={(event) => {
-                if (event.key === 'Backspace') {
-                  if (thirdRef.current?.value.length === 0) {
-                    secondRef.current?.focus();
-                  }
-                  return;
-                }
-                if (event.key < '0' || event.key > '9') {
-                  return event.preventDefault();
-                }
+              onKeyUp={(event) => {
+                checkValide();
                 if (thirdRef.current?.value.length === 0) {
                   return;
                 }
@@ -123,21 +136,28 @@ export default function ThirdPage() {
                   fouthRef.current?.focus();
                 }
               }}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace') {
+                  if (thirdRef.current?.value.length === 0) {
+                    secondRef.current?.focus();
+                  }
+                  return;
+                }
+                if (
+                  event.key < '0' ||
+                  event.key > '9' ||
+                  (thirdRef.current?.value as string).length > 0
+                ) {
+                  return event.preventDefault();
+                }
+              }}
             ></input>
             <input
               className="w-14 h-14 rounded-sm border-2 border-solid border-[#BEBEBE] mx-3 focus:outline-none text-center"
               type="text"
               ref={fouthRef}
-              onKeyDown={(event) => {
-                if (event.key === 'Backspace') {
-                  if (fouthRef.current?.value.length === 0) {
-                    thirdRef.current?.focus();
-                  }
-                  return;
-                }
-                if (event.key < '0' || event.key > '9') {
-                  return event.preventDefault();
-                }
+              onKeyUp={(event) => {
+                checkValide();
                 if (fouthRef.current?.value.length === 0) {
                   return;
                 }
@@ -145,11 +165,29 @@ export default function ThirdPage() {
                   event.preventDefault();
                 }
               }}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace') {
+                  if (fouthRef.current?.value.length === 0) {
+                    thirdRef.current?.focus();
+                  }
+                  return;
+                }
+                if (
+                  event.key < '0' ||
+                  event.key > '9' ||
+                  (fouthRef.current?.value as string).length > 0
+                ) {
+                  return event.preventDefault();
+                }
+
+                // setIsDisable(false);
+              }}
             ></input>
           </div>
           <button
-            className="w-full text-white bg-[#659DBD] block rounded-lg p-3 mt-3"
+            className="w-full text-white bg-[#659DBD] block rounded-lg p-3 mt-3 disabled:cursor-not-allowed disabled:bg-gray-400"
             type="submit"
+            disabled={isDisable}
           >
             Enter
           </button>

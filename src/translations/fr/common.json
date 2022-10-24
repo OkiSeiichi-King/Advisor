@@ -1,5 +1,15 @@
 {
   "dashboard": {
-    "title": "CONSEILLER PERSONNEL"
+    "your": "ton",
+    "market": "marché",
+    "value": "évaluer",
+    "tryFree": "ESSAYER GRATUITEMENT",
+    "calculate": "Calculer",
+    "increaseValue": "Augmentez votre valeur",
+    "nigociateParagraph": "Négociez votre salaire en interne ou lors d'entretiens d'embauche pour optimiser votre valeur sur le marché.",
+    "privacy": "Intimité",
+    "PrivacyParagraph": "People advisor est basé en Suisse. Cela signifie que toutes les données des utilisateurs sont protégées par les lois suisses strictes sur la protection de la vie privée. Nous ne partagerons jamais vos coordonnées sans votre consentement.",
+    "technology": "Technologie",
+    "technologyParagraph": "Notre base de données graphique nous permet de comparer chaque profil aux standards du marché et ainsi de prédire le salaire que vous pourriez gagner."
   }
 }

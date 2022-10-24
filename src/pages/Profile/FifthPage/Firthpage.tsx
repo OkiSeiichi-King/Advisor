@@ -14,6 +14,8 @@ export default React.forwardRef(
       (state: RootState) => state.firstData.firstName
     );
 
+    const [yesNoState, setYesNoState] = useState('');
+
     const [display, setDisplay] = useState(false);
     const [isDisable, setIsDisable] = useState(false);
 
@@ -53,9 +55,11 @@ export default React.forwardRef(
                 });
                 return;
               }
-              if (data.YesOrNo === 'no') {
-                setIsDisable(true);
-              }
+
+              setYesNoState(data.YesOrNo);
+
+              setIsDisable(true);
+
               dispatch(next());
             })}
             ref={ref}
@@ -69,6 +73,9 @@ export default React.forwardRef(
                   value="yes"
                   onClick={() => {
                     setDisplay(false);
+                    // if (yesNoState === 'no') {
+                    setIsDisable(false);
+                    // }
                   }}
                   className=" w-6 h-6 text-blue-600 bg-gray-100 border-gray-300   dark:bg-gray-700  focus:outline-none"
                 />
@@ -85,6 +92,9 @@ export default React.forwardRef(
                   className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300  dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 focus:outline-none"
                   onChange={(e) => {
                     setDisplay(true);
+                    // if (yesNoState === 'yes') {
+                    setIsDisable(false);
+                    // }
                   }}
                 />
                 <label htmlFor="bordered-radio-10" className="ml-2 w-full">

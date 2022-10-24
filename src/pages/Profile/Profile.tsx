@@ -9,8 +9,6 @@ import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
 import ThirdPage from './ThirdPage';
 import FourthPage from './FourthPage';
-import FifthPage from './FifthPage';
-import SixthPage from './SixthPage';
 
 import FirstImage from '../../assets/images/first.png';
 import SecondImage from '../../assets/images/second.png';
@@ -26,7 +24,7 @@ const step_images = [
   SecondImage,
   ThirdImage,
   FourthImage,
-  FourthImage,
+
   SixImage,
 ];
 
@@ -34,8 +32,6 @@ export default function Profile() {
   const firstFormRef = useRef<HTMLFormElement>(null);
   const secondFormRef = useRef<HTMLFormElement>(null);
   const fourthFormRef = useRef<HTMLFormElement>(null);
-  const fifthFormRef = useRef<HTMLFormElement>(null);
-  const sixFormRef = useRef<HTMLFormElement>(null);
 
   const [t, i18n] = useTranslation('common');
 
@@ -44,12 +40,14 @@ export default function Profile() {
     <SecondPage ref={secondFormRef} />,
     <ThirdPage />,
     <FourthPage ref={fourthFormRef} />,
-    <FifthPage ref={fifthFormRef} />,
-    <SixthPage ref={sixFormRef} />,
   ];
 
   const activePage = useSelector(
     (state: RootState) => state.active_profile_page.value
+  );
+
+  const isFinish = useSelector(
+    (state: RootState) => state.active_profile_page.isFinish
   );
 
   const threeData = useSelector((state: RootState) => {
@@ -62,8 +60,6 @@ export default function Profile() {
     'Let’s get started! This should not take more than 2 minutes.First, we need to know a little bit more about you.',
     `Thanks ${FirstData.firstName}! Let’s continue to discover your profile.`,
     `${FirstData.firstName}, one final step to get your report! To prevent misuse of our salary estimation, we will send you a verification code by sms.`,
-    `Well done ${FirstData.firstName}! Please find below the results of our first analysis.`,
-    `Well done ${FirstData.firstName}! Please find below the results of our first analysis.`,
     `Well done ${FirstData.firstName}! Please find below the results of our first analysis.`,
   ];
 
@@ -85,24 +81,17 @@ export default function Profile() {
         dispatch(next());
         break;
       case 3:
-        fourthFormRef.current?.dispatchEvent(
-          new Event('submit', { cancelable: true, bubbles: true })
-        );
-        break;
-      case 4:
-        fifthFormRef.current?.dispatchEvent(
-          new Event('submit', { cancelable: true, bubbles: true })
-        );
-        break;
-      case 5:
-        sixFormRef.current?.dispatchEvent(
-          new Event('submit', { cancelable: true, bubbles: true })
-        );
         break;
 
       default:
         break;
     }
+  };
+
+  const finishHandle = () => {
+    fourthFormRef.current?.dispatchEvent(
+      new Event('submit', { cancelable: true, bubbles: true })
+    );
   };
 
   const prevHandler = () => {
@@ -123,28 +112,44 @@ export default function Profile() {
     return () => {};
   }, []);
 
-  // console.log((100 * activePage) / 6, 100 * activePage);
-
   return (
     <div className="response-back">
       <div className="container mx-auto ">
         <div className="pt-10">
           <div className="banner mt-4 flex">
             <div className="md:text-8xl text-6xl md:mt-0 mt-8 font-[400] text-white font-[Newake] md:w-7/12 text-center w-full">
-              <Link to="/">{t('dashboard.title')}</Link>
+              <Link to="/">PEOPLE ADVISOR</Link>
             </div>
             <div className="w-5/12 justify-center items-center  md:flex hidden">
-              <img className="" src={step_images[activePage]} alt="step" />
+              <img
+                className=""
+                src={step_images[isFinish && activePage == 3 ? 4 : activePage]}
+                alt="step"
+                style={{
+                  cursor: isFinish && activePage == 3 ? 'pointer' : 'default',
+                }}
+                onClick={() => {
+                  if (isFinish && activePage == 3) {
+                    alert('finish!!!!');
+                  }
+                }}
+              />
               <div className="w-full ml-3">
                 <span className="text-white block text-4xl text-[inter]">
-                  {((100 * activePage) / 5).toFixed(0)}%
+                  {isFinish && activePage == 3
+                    ? 100
+                    : ((100 * activePage) / 5).toFixed(0)}
+                  %
                 </span>
                 <div className="w-full h-3 rounded-lg border-2 border-white border-solid bg-transparent relative">
                   <span
-                    className="block absolute ml-[0.1rem] h-full bg-white"
+                    className="block absolute ml-[0.01rem] h-full bg-white"
                     style={{
                       width:
-                        ((100 * activePage) / 5).toFixed(0).toString() + '%',
+                        isFinish && activePage == 3
+                          ? '100%'
+                          : ((100 * activePage) / 5).toFixed(0).toString() +
+                            '%',
                     }}
                   ></span>
                 </div>
@@ -157,39 +162,46 @@ export default function Profile() {
               <p className="md:text-2xl text-[1.25rem] md:px-0 px-2 md:text-white text-black md:mt-16 text-center text-[inter] font-[400]">
                 {titles[activePage]}
               </p>
-              <div className="bg-white rounded-2xl p-8 mt-12 shadow-zinc-900 mx-2 md:mx-0">
+              <div className="bg-white rounded-2xl md:p-8 py-6 px-3 mt-12 shadow-zinc-900 mx-2 md:mx-0">
                 <div className="w-full justify-center items-center  md:hidden flex mb-9">
-                  {activePage === 5 ? (
-                    <Link to={'/'}>
-                      <img
-                        className=""
-                        src={step_images[activePage]}
-                        alt="step"
-                      />
-                    </Link>
-                  ) : (
-                    <img
-                      className=""
-                      src={step_images[activePage]}
-                      alt="step"
-                    />
-                  )}
+                  <img
+                    className=""
+                    src={
+                      step_images[isFinish && activePage == 3 ? 4 : activePage]
+                    }
+                    alt="step"
+                    style={{
+                      cursor:
+                        isFinish && activePage == 3 ? 'pointer' : 'default',
+                    }}
+                    onClick={() => {
+                      if (isFinish && activePage == 3) {
+                        alert('finish!!!!');
+                      }
+                    }}
+                  />
                   <div className="w-full ml-3">
                     <span className="text-[#659DBD] block text-4xl text-[inter]">
-                      {((100 * activePage) / 5).toFixed(0)}%
+                      {isFinish && activePage == 3
+                        ? 100
+                        : ((100 * activePage) / 5).toFixed(0)}
+                      %
                     </span>
                     <div className="w-full h-3 rounded-lg border-2 border-[#659DBD] border-solid bg-transparent relative">
                       <span
-                        className="block absolute ml-[0.1rem] h-full bg-[#659DBD]"
+                        className="block absolute ml-[0.01rem] h-full bg-[#659DBD]"
                         style={{
                           width:
-                            ((100 * activePage) / 5).toFixed(0).toString() +
-                            '%',
+                            isFinish && activePage == 3
+                              ? '100%'
+                              : ((100 * activePage) / 5).toFixed(0).toString() +
+                                '%',
                         }}
                       ></span>
                     </div>
                   </div>
                 </div>
+
                 {pages.map((_item: any, _index: number) => {
                   return (
                     <div
@@ -239,35 +251,33 @@ export default function Profile() {
                         (activePage === 3 ? ' bg-[#659DBD]' : '')
                       }
                     ></span>
-                    <span
-                      className={
-                        'rounded-full w-4 h-4 border-solid border-[#659DBD] border-2 block' +
-                        (activePage === 4 ? ' bg-[#659DBD]' : '')
-                      }
-                    ></span>
-                    <span
-                      className={
-                        'rounded-full w-4 h-4 border-solid border-[#659DBD] border-2 block' +
-                        (activePage === 5 ? ' bg-[#659DBD]' : '')
-                      }
-                    ></span>
                   </div>
                   <div className="w-full">
                     <button
                       className={
                         'text-white py-2 px-4 bg-[#659DBD] rounded-md block mx-auto disabled:cursor-not-allowed disabled:bg-gray-400' +
-                        (activePage === 5 ? ' hidden' : '')
+                        (activePage === 3 ? ' hidden' : '')
                       }
                       onClick={nextHandler}
                       disabled={activePage === 2 && !threeData}
                     >
                       next
                     </button>
+                    <button
+                      className={
+                        'text-white py-2 px-4 bg-[#659DBD] rounded-md mx-auto disabled:cursor-not-allowed disabled:bg-gray-400 ' +
+                        (activePage === 3 ? ' block' : 'hidden')
+                      }
+                      // onClick={nextHandler}
+                      onClick={finishHandle}
+                    >
+                      finish
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="md:w-1/2 w-full md:ml-16 md:pl-16 md:mt-14">
+            <div className="md:w-1/2 w-full md:ml-16 md:pl-16 md:mt-[11rem]">
               <img
                 src={windowWidth < 768 ? leftMobileImage : leftGifImage}
                 className="w-full"

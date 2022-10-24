@@ -1,5 +1,15 @@
 {
   "dashboard": {
-    "title": "CONSULENTE PERSONE"
+    "your": "il tuo",
+    "market": "di mercato",
+    "value": "valore",
+    "tryFree": "PROVA GRATIS",
+    "calculate": "Calcolare",
+    "increaseValue": "Aumenta il tuo valore",
+    "nigociateParagraph": "Negozia il tuo stipendio internamente o durante i colloqui di lavoro per ottimizzare il tuo valore sul mercato.",
+    "privacy": "Privacy",
+    "PrivacyParagraph": "People Advisor ha sede in Svizzera. Ciò significa che tutti i dati degli utenti sono protetti dalle rigide leggi svizzere sulla privacy. Non condivideremo mai i tuoi dati senza il tuo consenso.",
+    "technology": "Tecnologia",
+    "technologyParagraph": "Il nostro database grafico ci permette di confrontare ogni profilo con gli standard di mercato e quindi di prevedere lo stipendio che potresti guadagnare."
   }
 }

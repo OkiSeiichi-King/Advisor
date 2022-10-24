@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import ReactSelect, { OptionsOrGroups } from 'react-select';
+import ReactSelect from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -59,18 +59,58 @@ export default React.forwardRef(
 
     useEffect(() => {
       //@ts-ignore
-      setRoleOptions(makeTreeOption(roleOptionJson, ''));
+      const treeData = makeTreeOption(roleOptionJson, '');
+      setRoleOptions(treeData);
+      // @ts-ignore
+      // console.log(
+      //   selectedRole,
+      //   // @ts-ignore
+      //   roleSelRef.current?.getCategorizedOptions()
+      // );
 
-      if (roleSelRef.current !== undefined) {
+      if (selectedRole !== null) {
+        const searchData = treeData
+          .find((element: any) => {
+            //@ts-ignore
+            if (element.value === selectedRole.parent) {
+              return true;
+            }
+            return false;
+          })
+          .options.find((element: any) => {
+            //@ts-ignore
+            if (element.value === selectedRole.value) {
+              return true;
+            }
+            return false;
+          });
         //@ts-ignore
-        roleSelRef.current.clearValue();
-        setSelectedRole(null);
+        roleSelRef.current?.selectOption(searchData);
+
+        if (selectedWork !== null) {
+          // @ts-ignore
+          const workOptionJson = require(`../../../assets/json/roles-${selectedRole?.parent}.json`);
+          const treeData1 = makeTreeOption(workOptionJson, '');
+          const searchData1 = treeData1
+            .find((element: any) => {
+              //@ts-ignore
+              if (element.value === selectedWork.parent) {
+                return true;
+              }
+              return false;
+            })
+            .options.find((element: any) => {
+              //@ts-ignore
+              if (element.value === selectedWork.value) {
+                return true;
+              }
+              return false;
+            });
+          //@ts-ignore
+          workSelRef.current?.selectOption(searchData1);
+        }
       }
-      if (workSelRef.current !== undefined) {
-        //@ts-ignore
-        workSelRef.current.clearValue();
-        setSelectedWork(null);
-      }
+
       return () => {};
     }, [i18n.language]);
 

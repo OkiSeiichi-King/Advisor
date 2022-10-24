@@ -21,10 +21,10 @@ export default function Charts({
   salary = Number(salary);
   const salaryPerDay = Math.floor(salary / 100);
 
-  const minSalary = (Math.abs(salary - 1000) + salary - 1000) / 2;
+  const minSalary = Math.floor(salary * 0.7);
   const minSalaryPerDay = Math.floor(minSalary / 100);
 
-  const maxSalary = salary + 1500;
+  const maxSalary = Math.floor(salary * 1.5);
   const maxSalaryPerDay = Math.floor(maxSalary / 100);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -57,7 +57,7 @@ export default function Charts({
     },
     {
       name: '75%',
-      Total: salary + 100,
+      Total: minSalary,
       pv: 1,
       Day: salaryPerDay,
     },

@@ -1,5 +1,15 @@
 {
   "dashboard": {
-    "title": "PERSON ENBERATER"
+    "your": "Sie",
+    "market": "Ihren",
+    "value": "Marktwert",
+    "tryFree": "TRY FOR FREE",
+    "calculate": "Berechnen",
+    "increaseValue": "Erhöhen Sie Ihren Wert",
+    "nigociateParagraph": "Verhandeln Sie Ihr Gehalt intern oder bei Bewerbungsgesprächen, um Ihren Marktwert zu optimieren.",
+    "privacy": "Privatsphäre",
+    "PrivacyParagraph": "People Advisor hat seinen Sitz in der Schweiz. Das bedeutet, dass alle Benutzerdaten durch strenge Schweizer Datenschutzgesetze geschützt sind. Wir werden Ihre Daten niemals ohne Ihre Zustimmung weitergeben.",
+    "technology": "Technologie",
+    "technologyParagraph": "Unsere grafische Datenbank ermöglicht es uns, jedes Profil mit Marktstandards zu vergleichen und so das Gehalt vorherzusagen, das Sie verdienen könnten."
   }
 }

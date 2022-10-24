@@ -1,5 +1,15 @@
 {
   "dashboard": {
-    "title": "PEOPLE ADVISOR"
+    "your": "your",
+    "market": "market",
+    "value": "value",
+    "tryFree": "TRY FOR FREE",
+    "calculate": "Calculate",
+    "increaseValue": "Increase your value",
+    "nigociateParagraph": "Negociate your salary internally or during job interviews to optimize your value on the market.",
+    "privacy": "Privacy",
+    "PrivacyParagraph": "People advisor is based in Switzerland. This means all user data is protected by strict Swiss privacy laws. We will never share your details without your consent.",
+    "technology": "Technology",
+    "technologyParagraph": "Our graphical database allows us to compare each profile with market standards and thus to predict the salary you could earn."
   }
 }
